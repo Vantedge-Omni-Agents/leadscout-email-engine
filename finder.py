@@ -1,16 +1,25 @@
 import requests
 import re
 
-url = input("Enter website URL: ")
+website = input("Enter website URL: ").strip()
 
-html = requests.get(url, timeout=10).text
+if not website.startswith("http"):
+website = "https://" + website
 
+try:
+response = requests.get(website, timeout=10)
+
+```
 emails = set(
     re.findall(
         r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}",
-        html
+        response.text
     )
 )
 
-for email in emails:
-    print(email)
+print("\nEmails Found:")
+
+if emails:
+    for email in emails:
+        print("-",
+```
